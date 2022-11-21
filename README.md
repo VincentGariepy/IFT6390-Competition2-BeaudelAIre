@@ -1,6 +1,6 @@
 # IFT6390-Competition2-BeaudelAIre
 
-##Naive Bayes
+## Naive Bayes
 
 ## Kernel SVM
 
