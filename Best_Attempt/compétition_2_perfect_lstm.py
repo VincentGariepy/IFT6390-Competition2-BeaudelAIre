@@ -202,6 +202,38 @@ def model(X_train):
     return model
 
 
+def model_with_epoch(X_train, Y_train, X_test, test_inputs,
+                     load_model_filename, save_model_filename,
+                     prediction_filename):
+    """
+    Load the model - We applied model each time by saving the model for 1 epoch and
+    load the model for testing epoch afterwards.
+    Epoch 1: Train set-80.78, Test set: 0.82497
+    Epoch 2: Train set-83.12, Test set: 0.82816
+    Epoch 3: Train set-84.24, Test set: 0.83065
+    Epoch 4: Train set-85.13, Test set: 0.83051 (Stopped Here)
+    """
+    model = keras.models.load_model(load_model_filename)
+
+    """
+    The batch size is the number of samples to run through the network before a 
+    weight update is performed (an epoch), we’ll keep it low as it requires less 
+    memory.
+    """
+    batch_size = 64
+    model.fit(X_train, Y_train, epochs=1, batch_size=batch_size, verbose=2, shuffle=True)
+
+    # Save the model
+    model.save(save_model_filename)
+
+    # Predict the test set
+    y_predicted = model.predict(X_test)
+
+    # The output class is the one which will have highest probability of neuron
+    pred = np.argmax(y_predicted, axis=1) * 2
+    prepareKaggleFile(test_inputs, pred, file=prediction_filename)
+
+
 if __name__ == '__main__':
     # Load train data into dataframe and numpy array
     df_train = pd.read_csv('../data/train.csv')
@@ -252,16 +284,6 @@ if __name__ == '__main__':
     filename = '../models/neural_network_lstm.h5'
     model.save(filename)
 
-    """
-    Load the model - We applied model each time by saving the model for 1 epoch and 
-    load the model for testing epoch afterwards. 
-    Epoch 1: Train set-83.07, Test set: 0.82816
-    Epoch 2: Train set-84.24, Test set: 0.83065
-    Epoch 3: Train set-85.13, Test set: 0.83051
-    """
-    filename = '../models/neural_network_lstm.h5'
-    model = keras.models.load_model(filename)
-
     # Predict the test set
     y_predicted = model.predict(X_test)
 
@@ -275,3 +297,12 @@ if __name__ == '__main__':
     """
     pred = np.argmax(y_predicted, axis=1)*2
     prepareKaggleFile(test_inputs, pred, file='../data/test_label_nn_lstm.csv')
+
+    model_with_epoch(X_train, Y_train, X_test, test_inputs, filename, filename,
+                     '../data/test_label_nn_lstm_epoch_2.csv')
+
+    model_with_epoch(X_train, Y_train, X_test, test_inputs, filename, filename,
+                     '../data/test_label_nn_lstm_epoch_3.csv')
+
+    model_with_epoch(X_train, Y_train, X_test, test_inputs, filename, filename,
+                     '../data/test_label_nn_lstm_epoch_4.csv')
