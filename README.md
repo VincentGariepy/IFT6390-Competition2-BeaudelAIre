@@ -11,7 +11,7 @@ The code for the SVM testing and training can be found in the collab notebook in
 The code for the training of the Word2Vec encoder is found in the NeuralNet_Encoding notebook in the folder "Neural Net". The code for the tuning and testing of the MLP neural network is found in the NeuralNet_Tuning notebook in the folder "Neural Net". The final training script for the optimal MLP model is in the script NeuralNet_FinalTraining in the folder "Neural Net".
 
 ## Best attempt
-TODO
+We found LSTM model as the best suitable model for the classification of sentiments. The code for LSTM model for the training and testing is located in "Best_Attempt" directory, namely `Competition_2_perfect_lstm.ipynb` as colab notebook and the script version of this code is located in `competition_2_perfect_lstm.py`. The actual model and code which was designed in colab notebook at the time of submission is located in `competition_2_perfect_lstm_actual_file_in_competition_submission.ipynb`, this is kept for the record purposes. 
 
 ## Explicability
 The code for the LIME testing and training can be found in the collab notebook in the folder "NB_SVM_LIME".
