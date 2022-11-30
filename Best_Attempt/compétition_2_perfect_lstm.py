@@ -188,7 +188,7 @@ def model(X_train):
     The dropout parameter is applied to the inputs and/or outputs of our model 
     (the linear transformations), while the recurrent dropout is applied to the 
     recurrent state, or cell state, of the model. Recurrent dropout affects the 
-    “memory” of the network. The small the dataset is, the small the value of 
+    “memory” of the network. The small the dataset is, the larger the value of 
     recurrent_dropout.
     """
     lstm_out = 512
